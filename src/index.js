@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 
+const routes = require("./routes");
+
 const app = express();
 
 const PORT = 8080;
@@ -9,6 +11,7 @@ const PORT = 8080;
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(routes);
 
 app.listen(PORT, () => {
   console.log(`App running on http://localhost:${PORT}`);
