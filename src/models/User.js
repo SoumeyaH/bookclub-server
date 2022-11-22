@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const { isEmail } = require("validator");
 
 const schema = {
   username: {
@@ -7,7 +8,7 @@ const schema = {
     unique: true,
     lowercase: true,
     immutable: true,
-    minLength: [5, "Minimum username length is 5 characters."],
+    minLength: [4, "Minimum username length is 5 characters."],
   },
   email: {
     type: String,
