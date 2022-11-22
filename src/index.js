@@ -2,12 +2,14 @@ const express = require("express");
 const cors = require("cors");
 
 const routes = require("./routes");
+const mongoDBConnection = require("./connection");
 
 const app = express();
 
+mongoDBConnection();
+
 const PORT = 8080;
 
-//middleware
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
