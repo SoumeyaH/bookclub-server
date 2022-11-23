@@ -1,6 +1,8 @@
 const { Schema, model } = require("mongoose");
 const { isEmail } = require("validator");
 
+const { hashPassword } = require("../utils");
+
 const schema = {
   username: {
     type: String,
@@ -28,6 +30,8 @@ const schema = {
 const userSchema = new Schema(schema, {
   timestamps: true,
 });
+
+userSchema.pre("save", hashPassword);
 
 const User = new model("User", userSchema);
 
