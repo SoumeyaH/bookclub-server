@@ -13,7 +13,6 @@ const signup = async (req, res) => {
     const user = await User.create({ username, email, password });
     const token = createToken(user._id);
 
-    console.log("PASSWORD", user);
     res.status(201).json({
       username: user.username,
       token,
@@ -26,8 +25,22 @@ const signup = async (req, res) => {
   }
 };
 
-const login = (req, res) => {
-  res.json({ message: "login" });
+const login = async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+    const user = await User.login(username, email, password);
+    const token = createToken(user._id);
+
+    res.status(200).json({
+      username: user.username,
+      token,
+      userId: user._id,
+    });
+  } catch (err) {
+    console.log(err.message);
+    console.log(err);
+    res.status(400).json({ message: err.message });
+  }
 };
 
 module.exports = {

@@ -17,4 +17,26 @@ const createToken = (id) => {
   });
 };
 
-module.exports = { hashPassword, createToken };
+const authorize = async (user, password) => {
+  const authorized = await bcrypt.compare(password, user.password);
+  if (!authorized) throw Error("This password is incorrect");
+  return user;
+};
+
+const loginUser = async function (username, email, password) {
+  if (username) {
+    const user = await this.findOne({ username });
+    if (!user) throw Error("This username incorrect ");
+    return await authorize(user, password);
+  }
+
+  if (email) {
+    const user = await this.findOne({ email });
+    if (!user) throw Error("This email is incorrect");
+    return await authorize(user, password);
+  }
+
+  // TODO error if neither passed
+};
+
+module.exports = { hashPassword, createToken, loginUser };

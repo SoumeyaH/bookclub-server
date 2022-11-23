@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 const { isEmail } = require("validator");
 
-const { hashPassword } = require("../utils");
+const { hashPassword, loginUser } = require("../utils");
 
 const schema = {
   username: {
@@ -32,6 +32,8 @@ const userSchema = new Schema(schema, {
 });
 
 userSchema.pre("save", hashPassword);
+
+userSchema.statics.login = loginUser;
 
 const User = new model("User", userSchema);
 

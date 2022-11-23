@@ -1,3 +1,3 @@
-const { hashPassword, createToken } = require("./userRelated");
+const { hashPassword, createToken, loginUser } = require("./userRelated");
 
-module.exports = { hashPassword, createToken };
+module.exports = { hashPassword, createToken, loginUser };
