@@ -1,7 +1,8 @@
 const { Schema, model } = require("mongoose");
 const { isEmail } = require("validator");
 
-const { hashPassword, loginUser } = require("../utils");
+//TODO figure out why import from index returns undefined? circular dependency?
+const { hashPassword, loginUser } = require("../utils/userRelated");
 
 const schema = {
   username: {

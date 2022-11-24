@@ -1,3 +1,5 @@
 const { hashPassword, createToken, loginUser } = require("./userRelated");
 
-module.exports = { hashPassword, createToken, loginUser };
+const { protected } = require("./tokenAuth");
+
+module.exports = { hashPassword, createToken, loginUser, protected };

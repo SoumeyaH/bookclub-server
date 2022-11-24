@@ -43,7 +43,20 @@ const login = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await User.findByIdAndDelete(id);
+
+    res.status(200).json({ message: "Successfully deleted user" });
+  } catch (err) {
+    console.log(err.message, err);
+  }
+};
+
 module.exports = {
   signup,
   login,
+  deleteUser,
 };
