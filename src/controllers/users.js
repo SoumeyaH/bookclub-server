@@ -1,9 +1,10 @@
 const { User } = require("../models");
 const { createToken } = require("../utils");
+const { userErrorHandler } = require("../utils/errorHandling");
 
 const checkUsernameAvailability = async (username) => {
   const user = await User.findOne({ username });
-  if (user) throw Error("This username already exists");
+  if (user) throw Error("username exists");
 };
 
 const signup = async (req, res) => {
@@ -20,14 +21,16 @@ const signup = async (req, res) => {
     });
   } catch (err) {
     console.log(err.message);
-    console.log(err);
-    res.status(400).json({ message: err.message });
+    const errors = userErrorHandler(err);
+    res.status(400).json({ errors });
   }
 };
 
 const login = async (req, res) => {
   try {
     const { username, email, password } = req.body;
+
+    console.log(username, email, password);
     const user = await User.login(username, email, password);
     const token = createToken(user._id);
 
@@ -38,8 +41,8 @@ const login = async (req, res) => {
     });
   } catch (err) {
     console.log(err.message);
-    console.log(err);
-    res.status(400).json({ message: err.message });
+    const errors = userErrorHandler(err);
+    res.status(400).json({ errors });
   }
 };
 

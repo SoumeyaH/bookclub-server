@@ -19,24 +19,24 @@ const createToken = (id) => {
 
 const authorize = async (user, password) => {
   const authorized = await bcrypt.compare(password, user.password);
-  if (!authorized) throw Error("This password is incorrect");
+  if (!authorized) throw Error("incorrect password");
   return user;
 };
 
 const loginUser = async function (username, email, password) {
   if (username) {
     const user = await this.findOne({ username });
-    if (!user) throw Error("This username incorrect ");
+    if (!user) throw Error("incorrect username");
     return await authorize(user, password);
   }
 
   if (email) {
     const user = await this.findOne({ email });
-    if (!user) throw Error("This email is incorrect");
+    if (!user) throw Error("incorrect email");
     return await authorize(user, password);
   }
 
-  // TODO error if neither passed
+  // throw Error("Please enter a correct username or email");
 };
 
 module.exports = { hashPassword, createToken, loginUser };
